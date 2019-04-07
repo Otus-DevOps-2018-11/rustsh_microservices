@@ -1,0 +1,4 @@
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+rustsh/ubuntu-tmp-file   latest              c8b65a23fa8e        2 minutes ago       88.9MB
+ubuntu                   latest              94e814e2efa8        3 weeks ago         88.9MB
+hello-world              latest              fce289e99eb9        3 months ago        1.84kB
