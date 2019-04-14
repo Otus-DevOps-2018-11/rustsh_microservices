@@ -40,3 +40,23 @@ rustsh microservices repository
 
 ### Базовое имя проекта
 Базовое имя проекта можно задать, используя ключ `-p` (`--project-name`) в команде `docker-compose`. Второй способ — задать это имя в переменной окружения `COMPOSE_PROJECT_NAME` в консоли либо в файле .env.
+
+## Домашнее задание № 18 (Устройство Gitlab CI. Построение процесса непрерывной поставки)
+
+Что сделано:
+1. При помощи docker-machine создана VM для GitLab с установленным Docker:
+	```bash
+	docker-machine create --driver google \
+	--google-machine-image https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts \
+	--google-machine-type n1-standard-1 \
+	--google-zone europe-west1-b \
+	--google-disk-size 50 \
+	--google-tags http-server,https-server \
+	gitlab-ci 
+	```
+2. На VM созданы нужные папки, подготовлен файл docker-compose.tml, установлен Docker Compose, затем с его помощью установлен сам GitLab.
+3. В GitLab'е создана группа 'homework', внутри которой создан проект 'example'.
+4. Добавлен удалённый репозиторий 'gitlab', в котором задана ссылка на GitLab.
+5. Создан файл .gitlab-ci.yml для опредения CI/CD пайплайна.
+6. На VM запущен и зарегистрирован раннер.
+7. В пайплайн добавлено тестирование приложение (и соответствующий скрипт), заданы окружения, новые этапы (staging и production), условия и ограничения, определены динамические окружения.
