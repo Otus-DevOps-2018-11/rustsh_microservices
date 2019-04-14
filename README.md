@@ -34,7 +34,7 @@ rustsh microservices repository
 Что сделано:
 1. Контейнеры запущены с разными сетевыми драйверами (none, host, bridge), исследована разница между ними.
 2. Исследованы сетевые алиасы и включение контейнеров в несколько сетей.
-3. Установлен docker-compose, создан файл docker-compose.yml с описанием проекта.
+3. Установлен Docker Compose, создан файл docker-compose.yml с описанием проекта.
 4. В docker-compose.yml заданы несколько сетей с их настройками, алиасы, а также параметры, описанные в файле .env.
 5. При помощи команды `docker-compose up -d` запущено приложение reddit, состоящее из нескольких компонент.
 
@@ -60,3 +60,18 @@ rustsh microservices repository
 5. Создан файл .gitlab-ci.yml для опредения CI/CD пайплайна.
 6. На VM запущен и зарегистрирован раннер.
 7. В пайплайн добавлено тестирование приложение (и соответствующий скрипт), заданы окружения, новые этапы (staging и production), условия и ограничения, определены динамические окружения.
+
+## Домашнее задание № 19 (Введение в мониторинг. Системы мониторинга)
+
+Что сделано:
+1. Созданы правила файервола для Prometheus и Puma, создадан Docker хост в GCE и настроено локальное окружение на работу с ним.
+2. Запущен контейнер с Prometheus, исследован его интерфейс.
+3. Созданы Dockerfile для создания образа с Prometheus и файл конфигурации prometheus.yml.
+4. Собраны образы сервисов приложения при помощи скриптов docker_build.sh.
+5. В docker-compose.yml опредены новые сервисы (сам Prometheus и Node экспортер).
+6. При помощи Docker Compose развернуто приложение с системой мониторинга; исследована работа системы мониторинга.
+7. Созданные в ходе работы образы загружены на Docker Hub:
+	- ui: https://cloud.docker.com/repository/docker/rustsh/ui
+	- comment: https://cloud.docker.com/repository/docker/rustsh/comment
+	- post: https://cloud.docker.com/repository/docker/rustsh/post
+	- prometheus: https://cloud.docker.com/repository/docker/rustsh/prometheus
