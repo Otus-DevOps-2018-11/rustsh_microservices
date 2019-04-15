@@ -97,9 +97,4 @@ rustsh microservices repository
 	- создан файл alerts.yml, в котором определены условия, при которых алерт должен срабатывать и посылаться в Alertmanager. В Dockerfile для сборки образа Prometheus добавлена операция копирования данного файла в образ;
 	- информация о правилах добавлена в prometheus.yml;
 	- протестирована отправка оповещений в канал Slack.
-6. Созданные в ходе работы образы загружены на Docker Hub:
-	- ui: https://hub.docker.com/r/rustsh/ui
-	- comment: https://hub.docker.com/r/rustsh/comment
-	- post: https://hub.docker.com/r/rustsh/post
-	- prometheus: https://hub.docker.com/r/rustsh/prometheus
-	- alertmanager: https://hub.docker.com/r/rustsh/alertmanager
+6. Созданные в ходе работы образы загружены на Docker Hub: https://hub.docker.com/u/rustsh
