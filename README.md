@@ -64,14 +64,37 @@ rustsh microservices repository
 ## Домашнее задание № 19 (Введение в мониторинг. Системы мониторинга)
 
 Что сделано:
-1. Созданы правила файервола для Prometheus и Puma, создадан Docker хост в GCE и настроено локальное окружение на работу с ним.
+1. Созданы правила файервола для Prometheus и Puma, создан Docker хост в GCE и настроено локальное окружение на работу с ним.
 2. Запущен контейнер с Prometheus, исследован его интерфейс.
 3. Созданы Dockerfile для создания образа с Prometheus и файл конфигурации prometheus.yml.
 4. Собраны образы сервисов приложения при помощи скриптов docker_build.sh.
 5. В docker-compose.yml опредены новые сервисы (сам Prometheus и Node экспортер).
 6. При помощи Docker Compose развернуто приложение с системой мониторинга; исследована работа системы мониторинга.
 7. Созданные в ходе работы образы загружены на Docker Hub:
-	- ui: https://cloud.docker.com/repository/docker/rustsh/ui
-	- comment: https://cloud.docker.com/repository/docker/rustsh/comment
-	- post: https://cloud.docker.com/repository/docker/rustsh/post
-	- prometheus: https://cloud.docker.com/repository/docker/rustsh/prometheus
+	- ui: https://hub.docker.com/r/rustsh/ui
+	- comment: https://hub.docker.com/r/rustsh/comment
+	- post: https://hub.docker.com/r/rustsh/post
+	- prometheus: https://hub.docker.com/r/rustsh/prometheus
+
+## Домашнее задание № 20 (Мониторинг приложения и инфраструктуры)
+
+Что сделано:
+1. Создан Docker хост в GCE и настроено локальное окружение на работу с ним, создано правило файервола для сервисов мониторинга, открыты нужные порты (8080, 3000, 9093).
+2. Файл docker-compose.yml разделен на два — для самих приложений (docker-compose.yml) и для мониторинга (docker-compose-monitoring.yml).
+3. Установлен и исследован cAdvisor — инструмент для мониторинга состояния docker-контейнеров:
+	- сервис добавлен в docker-compose-monitoring.yml;
+	- информация о сервисе добавлена в prometheus.yml.
+4. Установлена и исследована Grafana — инструмент для визуализации метрик:
+	- сервис добавлен в docker-compose-monitoring.yml;
+	- в веб-интерфейсе задан источник данных, тип и параметры подключения;
+	- загружен и установлен сторонний дашборд;
+	- в конфигурацию Prometheus добавлена информацию о сервисе post, чтобы он начал собирать с него метрики;
+	- созданы и сохранены собственные дашборды Grafana — в т. ч. для сбора бизнес-метрик.
+5. Установлен и исследован Alertmanager — инструмент для оповещения:
+	- создан новый Dockerfile для сборки образа alertmanager;
+	- создан файл config.yml, в котором определена отправка нотификаций канал Slack, а также создана интеграция с этим каналом;
+	- сервис добавлен в docker-compose-monitoring.yml;
+	- создан файл alerts.yml, в котором определены условия, при которых алерт должен срабатывать и посылаться в Alertmanager. В Dockerfile для сборки образа Prometheus добавлена операция копирования данного файла в образ;
+	- информация о правилах добавлена в prometheus.yml;
+	- протестирована отправка оповещений в канал Slack.
+6. Созданные в ходе работы образы загружены на Docker Hub: https://hub.docker.com/u/rustsh
