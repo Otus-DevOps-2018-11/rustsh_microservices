@@ -154,3 +154,39 @@ median_time = time.sleep(max_resp_time)
     - установлен DNS Add-on;
     - протестирована работа кластера: шифрование данных, развёртывание приложений на примере nginx, проброс портов, логирование, выполнение команд внутри контейнера, предоставление сервиса наружу, работа недоверенных приложений под gVisor'ом;
 	- в конце работы все созданные ресурсы GCP были удалены.
+
+## Домашнее задание № 23 (Kubernetes. Запуск кластера и приложения. Модель безопасности)
+
+Что сделано:
+1. На рабочей машине установлены утилиты kubectl и Minikube.
+2. В виде YAML-манифестов описаны ресурсы deployment и service для компонентов приложения reddit.
+3. При помощи Minikube в VirtualBox развёрнут локальный кластер Kubernetes, в котором размещены компоненты приложения reddit:
+    ```bash
+    minikube start
+    ...
+    kubectl apply -f ./kubernetes/reddit
+    ```
+4. Исследован графический интерфейс Kubernetes:
+    - включен аддон dashboard:
+        ```bash
+        minikube addons enable dashboard
+        ```
+    - запущена страница с графическим интерфейсом:
+        ```bash
+        minikube dashboard
+        ```
+5. Создан новый namespace `dev`, также описанный в виде yml-файла.
+6. В Google Kubernetes Engine создан кластер Kubernetes, информация о нём добавлена в файл `~/.kube/config`.
+7. Приложение reddit развёрнуто в кластере GKE в пространстве имён `dev`.
+8. Создано правило файервола для доступа к приложению из интернета.
+9. В GKE запущен графический интерфейс для кластера:
+    - для опции `Kubernetes dashboard` выставлено значение `Enabled`;
+    - учётной записи дашборда при помощи привязки назначена роль с достаточными правами на просмотр информации о кластере:
+        ```bash
+        kubectl create clusterrolebinding kubernetes-dashboard  --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+        ```
+    - включено проксирование для кластера Kubernetes:
+        ```bash
+        kubectl proxy
+        ```
+    - открыта графическая панель Kubernetes по ссылке http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
