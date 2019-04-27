@@ -190,3 +190,16 @@ median_time = time.sleep(max_resp_time)
         kubectl proxy
         ```
     - открыта графическая панель Kubernetes по ссылке http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+## Домашнее задание № 24 (Kubernetes. Networks, Storages)
+
+Что сделано:
+1. Исследована работа внешнего облачного балансировщика нагрузки с кластером Kubernetes.
+2. Для управления трафиком создан Ingress, настроен Ingress Controller.
+3. Создан приватный ключ и TLS-сертификат, сертификат скопирован в кластер.
+4. Ingress настроен на приём только HTTPS-трафика.
+5. Включена network-policy для GKE.
+6. При помощи NetworkPolicy ограничен трафик, поступающий на mongodb отовсюду, кроме сервисов post и comment.
+7. Создан диск в GCP, в файле mongo-deployment.yml изменён тип Volume, выделенный диск примонтирован к поду БД.
+8. Создан PersistentVolume в виде диска в GCP, а также запрос на выдачу — PersistentVolumeClaim, который подключен к поду БД.
+9. Создан StorageClass и новый PersistentVolumeClaim для подключения динамического PVC к подам кластера. 
