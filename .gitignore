@@ -2,3 +2,4 @@ build_info.txt
 ## python specific
 *.pyc
 .env
+Gitlab_ci/
